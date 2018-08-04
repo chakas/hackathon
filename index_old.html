@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Athereum</title>
+
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+
+    <script src="./node_modules/web3/dist/web3.min.js"></script>
+
+</head>
+
+<body>
+    <div class="container">
+
+        <h1>Athereum</h1>
+        <label for="name" class="col-lg-2 control-label">Name</label>
+        <input id="name" type="text">
+
+        <label for="name" class="col-lg-2 control-label">Email</label>
+        <input id="email" class="col-lg-2" type="text">
+
+        <button id="button">Signup</button>
+
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+
+    <script>
+        var web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:7545"));
+        
+        $("#button").on("click",function(){
+            username = $("#name").val()
+            email =  $("#email").val()
+
+            myaddr = web3.personal.newAccount(email)
+
+            localStorage.setItem("myaddress",myaddr)
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Athereum</title>
+
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- load MUI -->
+    <link href="//cdn.muicss.com/mui-0.9.39/css/mui.min.css" rel="stylesheet" type="text/css" />
+    <script src="//cdn.muicss.com/mui-0.9.39/js/mui.min.js"></script>
+    <script src="./node_modules/web3/dist/web3.min.js"></script>
+
+</head>
+
+<body style="background-color: rgb(68, 128, 255);">
+    <div class="container">
+        <h1>Athereum</h1>
+        <table class="mui-table mui-table--bordered">
+            <thead>
+                <tr>
+                    <th>Name (User address)</th>
+                    <th>Price</th>
+                    <th>Mode of transport</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>User 1(0x80EC654F)</td>
+                    <td>1</td>
+                    <td>Car</td>
+                </tr>
+                <tr>
+                    <td>User 2(0x70EC654F)</td>
+                    <td>1</td>
+                    <td>Flight</td>
+                </tr>
+                <tr>
+                    <td>User 3(0x60EC654F)</td>
+                    <td>1</td>
+                    <td>Bus</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script>
+
+        function getLogs(){
+            return {
+                "0x80EC654F": [10, "Flight"],
+                "0x60EC654F": [1,"Car"],
+                "0x50EC654F": [1, "Bus"]
+            }
+        }
+
+        var abi = [{ "constant": true, "inputs": [], "name": "name", "outputs": [{ "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "_spender", "type": "address" }, { "name": "_value", "type": "uint256" }], "name": "approve", "outputs": [{ "name": "success", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "totalSupply", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "_from", "type": "address" }, { "name": "_to", "type": "address" }, { "name": "_value", "type": "uint256" }], "name": "transferFrom", "outputs": [{ "name": "success", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "_address", "type": "address" }, { "name": "_name", "type": "string" }, { "name": "_email", "type": "string" }], "name": "createUser", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "name": "", "type": "uint256" }], "name": "usersList", "outputs": [{ "name": "", "type": "address" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "standard", "outputs": [{ "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "", "type": "address" }], "name": "balanceOf", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "symbol", "outputs": [{ "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "_to", "type": "address" }, { "name": "_value", "type": "uint256" }], "name": "transfer", "outputs": [{ "name": "success", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "name": "", "type": "address" }, { "name": "", "type": "address" }], "name": "allowance", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "_from", "type": "address" }], "name": "getLogs", "outputs": [{ "name": "data", "type": "string[]" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "name": "_initSupply", "type": "uint256" }], "payable": false, "stateMutability": "nonpayable", "type": "constructor" }, { "anonymous": false, "inputs": [{ "indexed": true, "name": "_from", "type": "address" }, { "indexed": true, "name": "_to", "type": "address" }, { "indexed": false, "name": "_value", "type": "uint256" }], "name": "Transfer", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "name": "_owner", "type": "address" }, { "indexed": true, "name": "_spender", "type": "address" }, { "indexed": false, "name": "_value", "type": "uint256" }], "name": "Approval", "type": "event" }]
+        var web3 = new Web3(new Web3.providers.HttpProvider("http://172.22.221.46:7545"));
+        addr = localStorage.getItem("myaddress")
+        // contract = web3.eth.contract(abi).at("0xdf9514833b079b84d2ba801a9b3e70aacb3d0549")
+        var logs = getLogs()
+        console.log(logs)
+        var keys = Object.keys(logs)
+        for(var i=0;i<keys.length;i++) {
+            $("#table").append(keys[i] + " " + logs[keys[i]][0] + " ATH "+"  "+ logs[keys[i]][1]+"<br>")
+        }
+    </script>
+
+</body>
+
+</html>
